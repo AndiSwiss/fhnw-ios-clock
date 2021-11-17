@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */; };
-		60E4D9302745A6E000D4E6F1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92F2745A6E000D4E6F1 /* ContentView.swift */; };
+		60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92F2745A6E000D4E6F1 /* ClockView.swift */; };
 		60E4D9322745A6E100D4E6F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E4D9312745A6E100D4E6F1 /* Assets.xcassets */; };
 		60E4D9352745A6E100D4E6F1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E4D9342745A6E100D4E6F1 /* Preview Assets.xcassets */; };
 		60E4D93F2745A6E100D4E6F1 /* fhnw_ios_clockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D93E2745A6E100D4E6F1 /* fhnw_ios_clockTests.swift */; };
 		60E4D9492745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9482745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift */; };
 		60E4D94B2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */; };
+		60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */; };
+		60E4D95A2745A94100D4E6F1 /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9592745A94100D4E6F1 /* ClockModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,7 @@
 /* Begin PBXFileReference section */
 		60E4D92A2745A6E000D4E6F1 /* fhnw-ios-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fhnw-ios-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockApp.swift; sourceTree = "<group>"; };
-		60E4D92F2745A6E000D4E6F1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		60E4D92F2745A6E000D4E6F1 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		60E4D9312745A6E100D4E6F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60E4D9342745A6E100D4E6F1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		60E4D93A2745A6E100D4E6F1 /* fhnw-ios-clockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fhnw-ios-clockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +46,8 @@
 		60E4D9442745A6E100D4E6F1 /* fhnw-ios-clockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fhnw-ios-clockUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E4D9482745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITests.swift; sourceTree = "<group>"; };
 		60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
+		60E4D9592745A94100D4E6F1 /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */,
-				60E4D92F2745A6E000D4E6F1 /* ContentView.swift */,
+				60E4D92F2745A6E000D4E6F1 /* ClockView.swift */,
+				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
+				60E4D9592745A94100D4E6F1 /* ClockModel.swift */,
 				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
 				60E4D9332745A6E100D4E6F1 /* Preview Content */,
 			);
@@ -257,8 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60E4D9302745A6E000D4E6F1 /* ContentView.swift in Sources */,
+				60E4D95A2745A94100D4E6F1 /* ClockModel.swift in Sources */,
+				60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */,
 				60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */,
+				60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
