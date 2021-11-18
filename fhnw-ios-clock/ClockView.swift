@@ -6,17 +6,19 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct ClockView: View {
+    
+    @ObservedObject var viewModel: ClockViewModel
     
     var body: some View {
         ZStack {
             ClockFace()
             // Hour
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, initMinute: 40)
+            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, initMinute: viewModel.getHour())
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, initMinute: 2)
+            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, initMinute: viewModel.getMin())
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, initMinute: 13)
+            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, initMinute: viewModel.getSec())
             
             // Center circle
             Circle()
@@ -94,6 +96,7 @@ struct ContentView_Previews: PreviewProvider {
     // Here, you can configure special settings for the in-built preview
     // see https://developer.apple.com/documentation/swiftui/previewprovider
     static var previews: some View {
-        ContentView()
+        let viewModel = ClockViewModel()
+        return ClockView(viewModel: viewModel)
     }
 }

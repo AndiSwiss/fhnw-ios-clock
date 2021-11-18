@@ -6,8 +6,14 @@
 import Foundation
 
 
-struct Time {
+struct ClockModel {
     var hour: Int
     var min: Int
     var sec: Int
+    
+    
+    func getTime() -> String {
+        "\(hour):\(min):\(sec)"
+    }
+
 }
