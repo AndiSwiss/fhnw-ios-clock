@@ -28,15 +28,17 @@ class ClockViewModel: ObservableObject {
     }
     
     
-    func getHour() -> Int {
-        return model.hour
+    func getHourDegree() -> Double {
+        // 360 degrees / 12 = 30 degrees
+        return (Double(model.hour) + Double(model.min)/60 ) * 30
     }
     
-    func getMin() -> Int {
-        return model.min
+    func getMinDegree() -> Double {
+        // 360 degrees / 60 = 6 degrees
+        return Double(model.min) * 6
     }
     
-    func getSec() -> Int {
-        return model.sec
+    func getSecDegree() -> Double {
+        return Double(model.sec) * 6
     }
 }

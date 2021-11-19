@@ -15,5 +15,4 @@ struct ClockModel {
     func getTime() -> String {
         "\(hour):\(min):\(sec)"
     }
-
 }

@@ -14,11 +14,11 @@ struct ClockView: View {
         ZStack {
             ClockFace()
             // Hour
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, initMinute: viewModel.getHour())
+            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree())
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, initMinute: viewModel.getMin())
+            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree())
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, initMinute: viewModel.getSec())
+            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree())
             
             // Center circle
             Circle()
@@ -36,9 +36,7 @@ struct WatchHand: View {
     var thickness: CGFloat
     var lengthPercentage: CGFloat
     var color: Color
-    
-    // TODO: replace once this thing gets interactive
-    var initMinute: Int
+    var angle: Double
         
     // MARK: - DrawingConstants
     let width = UIScreen.main.bounds.width
@@ -54,7 +52,7 @@ struct WatchHand: View {
             .fill(color)
             .frame(width: thickness, height: length)
             .offset(y: -length/2)
-            .rotationEffect(.init(degrees: Double(initMinute) * 6))
+            .rotationEffect(.init(degrees: angle))
     }
 }
 
