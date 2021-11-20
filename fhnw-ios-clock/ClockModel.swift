@@ -7,12 +7,8 @@ import Foundation
 
 
 struct ClockModel {
-    var hour: Int
-    var min: Int
-    var sec: Int
+    var myTime: Time
     
     
-    func getTime() -> String {
-        "\(hour):\(min):\(sec)"
-    }
+    // TODO: add a location string and and a time-offset for other time-zone
 }

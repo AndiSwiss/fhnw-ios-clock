@@ -10,20 +10,37 @@ struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
     
+    @State var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
+    @State var currentTime = Time(hour: 0, min: 0, sec: 0)
+
     var body: some View {
         ZStack {
             ClockFace()
             // Hour
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree())
+            // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
+            //       the WatchHands get recalculated properly
+            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(currentTime))
+            
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree())
+            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(currentTime))
+
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree())
+            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(currentTime))
             
             // Center circle
             Circle()
                 .fill(Color.red)
                 .frame(width: 15, height: 15)
+        }
+        .onAppear() {
+            withAnimation(Animation.easeInOut(duration: 0.5)) {
+                self.currentTime = viewModel.getCurrentTime()
+            }
+        }
+        .onReceive(receiver) { _ in
+            withAnimation(Animation.easeInOut(duration: 0.1)) {
+                self.currentTime = viewModel.getCurrentTime()
+            }
         }
     }
 }

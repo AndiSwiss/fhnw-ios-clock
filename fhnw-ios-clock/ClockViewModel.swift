@@ -20,25 +20,29 @@ class ClockViewModel: ObservableObject {
     
     
     static func createClock() -> ClockModel {
+        return ClockModel(myTime: Time(hour: 0, min: 0, sec: 0))
+    }
+    
+    func getCurrentTime() -> Time {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: Date())
         let min = calendar.component(.minute, from: Date())
         let sec = calendar.component(.second, from: Date())
-        return ClockModel(hour: hour, min: min, sec: sec)
+        return Time(hour: hour, min: min, sec: sec)
     }
     
     
-    func getHourDegree() -> Double {
+    func getHourDegree(_ currentTime: Time) -> Double {
         // 360 degrees / 12 = 30 degrees
-        return (Double(model.hour) + Double(model.min)/60 ) * 30
+        return (Double(currentTime.hour) + Double(model.myTime.min)/60 ) * 30
     }
     
-    func getMinDegree() -> Double {
+    func getMinDegree(_ currentTime: Time) -> Double {
         // 360 degrees / 60 = 6 degrees
-        return Double(model.min) * 6
+        return Double(currentTime.min) * 6
     }
     
-    func getSecDegree() -> Double {
-        return Double(model.sec) * 6
+    func getSecDegree(_ currentTime: Time) -> Double {
+        return Double(currentTime.sec) * 6
     }
 }
