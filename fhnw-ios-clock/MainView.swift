@@ -6,10 +6,39 @@
 import SwiftUI
 
 // MARK: - Main View
+struct MainView: View {
+    
+    @ObservedObject var viewModel: ClockViewModel
+    @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
+    @State var clockScaling: Double = 0
+
+    var body: some View {
+        VStack {
+            Spacer(minLength: 0)
+            ClockView(viewModel: viewModel)
+                .onAppear() {
+                    withAnimation(Animation.easeInOut(duration: 0.5)) {
+                        viewModel.updateTime()
+                    }
+                }
+                .onReceive(receiver) { _ in
+                    withAnimation(Animation.easeInOut(duration: 0.1)) {
+                        viewModel.updateTime()
+                    }
+                }
+            
+            Spacer(minLength: 0)
+            Slider(value: $clockScaling, in: 0.3...1.0)
+            Text("Clock scaling: \(clockScaling, specifier: "%.1f")")
+        }
+        .padding()
+    }
+}
+
+// MARK: - Whole Clock
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-    @State var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
 
     var body: some View {
         ZStack {
@@ -30,19 +59,8 @@ struct ClockView: View {
                 .fill(Color.red)
                 .frame(width: 15, height: 15)
         }
-        .onAppear() {
-            withAnimation(Animation.easeInOut(duration: 0.5)) {
-                viewModel.updateTime()
-            }
-        }
-        .onReceive(receiver) { _ in
-            withAnimation(Animation.easeInOut(duration: 0.1)) {
-                viewModel.updateTime()
-            }
-        }
     }
 }
-
 
 
 // MARK: - WatchHand
@@ -111,6 +129,6 @@ struct ContentView_Previews: PreviewProvider {
     // see https://developer.apple.com/documentation/swiftui/previewprovider
     static var previews: some View {
         let viewModel = ClockViewModel()
-        return ClockView(viewModel: viewModel)
+        return MainView(viewModel: viewModel)
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 struct fhnw_ios_clockApp: App {
     var body: some Scene {
         WindowGroup {
-            ClockView(viewModel: ClockViewModel())
+            MainView(viewModel: ClockViewModel())
         }
     }
 }
