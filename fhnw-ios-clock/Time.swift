@@ -7,14 +7,9 @@
 
 import Foundation
 
-
+// Model for the app
 struct Time {
     var hour: Int
     var min: Int
     var sec: Int
-    
-    
-    func getTime() -> String {
-        "\(hour):\(min):\(sec)"
-    }
 }

@@ -15,7 +15,6 @@
 		60E4D9492745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9482745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift */; };
 		60E4D94B2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */; };
 		60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */; };
-		60E4D95A2745A94100D4E6F1 /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9592745A94100D4E6F1 /* ClockModel.swift */; };
 		60E556D02749002100F53B20 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E556CF2749002100F53B20 /* Time.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		60E4D9482745A6E100D4E6F1 /* fhnw_ios_clockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITests.swift; sourceTree = "<group>"; };
 		60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
-		60E4D9592745A94100D4E6F1 /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
 		60E556CF2749002100F53B20 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,7 +102,6 @@
 				60E4D92F2745A6E000D4E6F1 /* ClockView.swift */,
 				60E556CF2749002100F53B20 /* Time.swift */,
 				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
-				60E4D9592745A94100D4E6F1 /* ClockModel.swift */,
 				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
 				60E4D9332745A6E100D4E6F1 /* Preview Content */,
 			);
@@ -267,7 +264,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60E556D02749002100F53B20 /* Time.swift in Sources */,
-				60E4D95A2745A94100D4E6F1 /* ClockModel.swift in Sources */,
 				60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */,
 				60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */,
 				60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */,

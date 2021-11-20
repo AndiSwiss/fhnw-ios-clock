@@ -5,27 +5,25 @@
 
 import SwiftUI
 
-
+// MARK: - Main View
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-    
     @State var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
-    @State var currentTime = Time(hour: 0, min: 0, sec: 0)
 
     var body: some View {
         ZStack {
             ClockFace()
             // Hour
             // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
-            //       the WatchHands get recalculated properly
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(currentTime))
+            //       the WatchHands get redrawn properly
+            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree())
             
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(currentTime))
+            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree())
 
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(currentTime))
+            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree())
             
             // Center circle
             Circle()
@@ -34,12 +32,12 @@ struct ClockView: View {
         }
         .onAppear() {
             withAnimation(Animation.easeInOut(duration: 0.5)) {
-                self.currentTime = viewModel.getCurrentTime()
+                viewModel.updateTime()
             }
         }
         .onReceive(receiver) { _ in
             withAnimation(Animation.easeInOut(duration: 0.1)) {
-                self.currentTime = viewModel.getCurrentTime()
+                viewModel.updateTime()
             }
         }
     }
@@ -107,6 +105,7 @@ struct ClockFace: View {
 }
 
 
+// MARK: - Preview Provider
 struct ContentView_Previews: PreviewProvider {
     // Here, you can configure special settings for the in-built preview
     // see https://developer.apple.com/documentation/swiftui/previewprovider

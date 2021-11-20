@@ -12,37 +12,60 @@ import Foundation
 
 class ClockViewModel: ObservableObject {
     
-    @Published private var model: ClockModel
+    @Published private var model: Time
     
+    // MARK: - Initializer
     init() {
         model = ClockViewModel.createClock()
     }
     
-    
-    static func createClock() -> ClockModel {
-        return ClockModel(myTime: Time(hour: 0, min: 0, sec: 0))
+    static func createClock() -> Time {
+        // Initialize with 0 for a starting animation to actual current time
+        return Time(hour: 0, min: 0, sec: 0)
     }
     
-    func getCurrentTime() -> Time {
+    
+    // MARK: - Access to the Model
+    // Computed properties:
+    var hour: Int {
+        return model.hour
+    }
+    
+    var min: Int {
+        return model.min
+    }
+    
+    var sec: Int {
+        return model.sec
+    }
+
+    
+    
+    // MARK: - Update time
+    func updateTime() {
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: Date())
-        let min = calendar.component(.minute, from: Date())
-        let sec = calendar.component(.second, from: Date())
-        return Time(hour: hour, min: min, sec: sec)
+        let currentDateTime = Date()
+        model.hour = calendar.component(.hour, from: currentDateTime)
+        model.min = calendar.component(.minute, from: currentDateTime)
+        model.sec = calendar.component(.second, from: currentDateTime)
     }
     
     
-    func getHourDegree(_ currentTime: Time) -> Double {
+    // MARK: - Angle conversion
+    func getHourDegree() -> Double {
         // 360 degrees / 12 = 30 degrees
-        return (Double(currentTime.hour) + Double(model.myTime.min)/60 ) * 30
+        return (Double(hour) + Double(min)/60 ) * 30
     }
     
-    func getMinDegree(_ currentTime: Time) -> Double {
+    
+    func getMinDegree() -> Double {
         // 360 degrees / 60 = 6 degrees
-        return Double(currentTime.min) * 6
+        return (Double(min) * 6)
     }
-    
-    func getSecDegree(_ currentTime: Time) -> Double {
-        return Double(currentTime.sec) * 6
+
+    func getSecDegree() -> Double {
+        // 360 degrees / 60 = 6 degrees
+        return Double(sec) * 6
     }
+
 }
