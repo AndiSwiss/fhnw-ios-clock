@@ -5,23 +5,40 @@
 
 import SwiftUI
 
-
-struct ContentView: View {
+// MARK: - Main View
+struct ClockView: View {
     
+    @ObservedObject var viewModel: ClockViewModel
+    @State var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
+
     var body: some View {
         ZStack {
             ClockFace()
             // Hour
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, initMinute: 40)
+            // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
+            //       the WatchHands get redrawn properly
+            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree())
+            
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, initMinute: 2)
+            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree())
+
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, initMinute: 13)
+            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree())
             
             // Center circle
             Circle()
                 .fill(Color.red)
                 .frame(width: 15, height: 15)
+        }
+        .onAppear() {
+            withAnimation(Animation.easeInOut(duration: 0.5)) {
+                viewModel.updateTime()
+            }
+        }
+        .onReceive(receiver) { _ in
+            withAnimation(Animation.easeInOut(duration: 0.1)) {
+                viewModel.updateTime()
+            }
         }
     }
 }
@@ -34,9 +51,7 @@ struct WatchHand: View {
     var thickness: CGFloat
     var lengthPercentage: CGFloat
     var color: Color
-    
-    // TODO: replace once this thing gets interactive
-    var initMinute: Int
+    var angle: Double
         
     // MARK: - DrawingConstants
     let width = UIScreen.main.bounds.width
@@ -52,7 +67,7 @@ struct WatchHand: View {
             .fill(color)
             .frame(width: thickness, height: length)
             .offset(y: -length/2)
-            .rotationEffect(.init(degrees: Double(initMinute) * 6))
+            .rotationEffect(.init(degrees: angle))
     }
 }
 
@@ -90,10 +105,12 @@ struct ClockFace: View {
 }
 
 
+// MARK: - Preview Provider
 struct ContentView_Previews: PreviewProvider {
     // Here, you can configure special settings for the in-built preview
     // see https://developer.apple.com/documentation/swiftui/previewprovider
     static var previews: some View {
-        ContentView()
+        let viewModel = ClockViewModel()
+        return ClockView(viewModel: viewModel)
     }
 }
