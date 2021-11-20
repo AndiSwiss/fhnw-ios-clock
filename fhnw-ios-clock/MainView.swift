@@ -10,12 +10,13 @@ struct MainView: View {
     
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
-    @State var clockScaling: Double = 0.9
+    
 
     var body: some View {
         VStack {
             Spacer(minLength: 0)
-            ClockView(viewModel: viewModel, clockScaling: $clockScaling)
+            
+            ClockView(viewModel: viewModel, clockScaling: 0.2)
                 .onAppear() {
                     withAnimation(Animation.easeInOut(duration: 0.8)) {
                         viewModel.updateTime()
@@ -28,10 +29,35 @@ struct MainView: View {
                 }
             
             Spacer(minLength: 0)
-            Slider(value: $clockScaling, in: 0.1...0.9)
-                .padding()
-            Text("ClockScaling: \(clockScaling, specifier: "%.2f")")
+            
+            ClockView(viewModel: viewModel, clockScaling: 0.4)
+                .onAppear() {
+                    withAnimation(Animation.easeInOut(duration: 0.8)) {
+                        viewModel.updateTime()
+                    }
+                }
+                .onReceive(receiver) { _ in
+                    withAnimation(Animation.easeInOut(duration: 0.1)) {
+                        viewModel.updateTime()
+                    }
+                }
+            
             Spacer(minLength: 0)
+            
+            ClockView(viewModel: viewModel, clockScaling: 0.9)
+                .onAppear() {
+                    withAnimation(Animation.easeInOut(duration: 0.8)) {
+                        viewModel.updateTime()
+                    }
+                }
+                .onReceive(receiver) { _ in
+                    withAnimation(Animation.easeInOut(duration: 0.1)) {
+                        viewModel.updateTime()
+                    }
+                }
+            Spacer(minLength: 0)
+            
+
         }
         .padding()
     }
@@ -43,7 +69,7 @@ struct ClockView: View {
     @ObservedObject var viewModel: ClockViewModel
     
     // MARK: - Dynamic Draw Scaling
-    @Binding var clockScaling: Double
+    var clockScaling: Double
     @State var width = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     private var clockRadius: CGFloat {
         return width * clockScaling / 2
@@ -52,17 +78,17 @@ struct ClockView: View {
     
     var body: some View {
         ZStack {
-            ClockFace(clockScaling: $clockScaling, width: $width)
+            ClockFace(clockScaling: clockScaling, width: $width)
             // Hour
             // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
             //       the WatchHands get redrawn properly
-            WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: $clockScaling, width: $width)
+            WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: $width)
 
             // Minute
-            WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: $clockScaling, width: $width)
+            WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: $width)
 
             // Second
-            WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: $clockScaling, width: $width)
+            WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: $width)
             
             // Center circle
             Circle()
@@ -82,7 +108,7 @@ struct WatchHand: View {
     var angle: Double
         
     // MARK: - Dynamic Draw Scaling
-    @Binding var clockScaling: Double
+    var clockScaling: Double
     @Binding var width: CGFloat
     private var clockRadius: CGFloat {
         return width * clockScaling / 2
@@ -105,7 +131,7 @@ struct WatchHand: View {
 // MARK: - ClockFace
 struct ClockFace: View {
     // MARK: - Dynamic Draw Scaling
-    @Binding var clockScaling: Double
+    var clockScaling: Double
     @Binding var width: CGFloat
     private var clockRadius: CGFloat {
         return width * clockScaling / 2
