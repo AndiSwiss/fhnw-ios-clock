@@ -11,57 +11,33 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
-
+    @State var scaleValue: CGFloat = 0.9
+    
     var body: some View {
         VStack {
+            ClockView(viewModel: viewModel, clockScaling: 0.2 * scaleValue)
             
-            
-            ClockView(viewModel: viewModel, clockScaling: 0.2)
-                .onAppear() {
-                    withAnimation(Animation.easeInOut(duration: 0.8)) {
-                        viewModel.updateTime()
-                    }
-                }
-                .onReceive(receiver) { _ in
-                    withAnimation(Animation.easeInOut(duration: 0.1)) {
-                        viewModel.updateTime()
-                    }
-                }
-            
-            
-            
-            ClockView(viewModel: viewModel, clockScaling: 0.4)
-                .onAppear() {
-                    withAnimation(Animation.easeInOut(duration: 0.8)) {
-                        viewModel.updateTime()
-                    }
-                }
-                .onReceive(receiver) { _ in
-                    withAnimation(Animation.easeInOut(duration: 0.1)) {
-                        viewModel.updateTime()
-                    }
-                }
-            
-            
-            
-            ClockView(viewModel: viewModel, clockScaling: 0.9)
-                .onAppear() {
-                    withAnimation(Animation.easeInOut(duration: 0.8)) {
-                        viewModel.updateTime()
-                    }
-                }
-                .onReceive(receiver) { _ in
-                    withAnimation(Animation.easeInOut(duration: 0.1)) {
-                        viewModel.updateTime()
-                    }
-                }
-            
-            
+            Slider(value: $scaleValue, in: 0.1...0.9)
+                .padding()
 
+            ClockView(viewModel: viewModel, clockScaling: 0.4 * scaleValue)
+            
+            ClockView(viewModel: viewModel, clockScaling: 0.9 * scaleValue)
         }
         .padding()
+        .onAppear() {
+            withAnimation(Animation.easeInOut(duration: 0.8)) {
+                viewModel.updateTime()
+            }
+        }
+        .onReceive(receiver) { _ in
+            withAnimation(Animation.easeInOut(duration: 0.1)) {
+                viewModel.updateTime()
+            }
+        }
     }
 }
+
 
 // MARK: - Whole Clock
 struct ClockView: View {
