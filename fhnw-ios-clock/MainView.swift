@@ -11,13 +11,13 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
-    @State var scaleValue: CGFloat = 0.9
+    @State var scaleValue: CGFloat = 1.0
     
     var body: some View {
         VStack {
             ClockView(viewModel: viewModel, clockScaling: 0.2 * scaleValue)
             
-            Slider(value: $scaleValue, in: 0.1...0.9)
+            Slider(value: $scaleValue, in: 0.1...1.0)
                 .padding()
 
             ClockView(viewModel: viewModel, clockScaling: 0.4 * scaleValue)
@@ -31,7 +31,7 @@ struct MainView: View {
             }
         }
         .onReceive(receiver) { _ in
-            withAnimation(Animation.easeInOut(duration: 0.1)) {
+            withAnimation(Animation.easeInOut(duration: 0.5)) {
                 viewModel.updateTime()
             }
         }
@@ -50,11 +50,10 @@ struct ClockView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack {
-                
-                let width = geo.size.width
-                let clockRadius = width * clockScaling / 2
+            let width = geo.size.width
+            let clockRadius = width * clockScaling / 2
 
+            ZStack {
                 ClockFace(clockScaling: clockScaling, width: width)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
@@ -89,18 +88,15 @@ struct WatchHand: View {
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
     var width: CGFloat
-    private var clockRadius: CGFloat {
-        return width * clockScaling / 2
-    }
-    
-    var length : CGFloat {
-        return lengthPercentage * clockRadius
-    }
-    
+
     var body: some View {
+        let clockRadius = width * clockScaling / 2
+        let length = lengthPercentage * clockRadius
+        
         RoundedRectangle(cornerRadius: 25, style: .continuous)
             .fill(color)
-            .frame(width: thickness, height: length)
+            // Note: width should not be less than 1 pixel, otherwise it would not be drawn => hence   max(thickness, 1)
+            .frame(width: max(thickness, 1), height: length)
             .offset(y: -length/2)
             .rotationEffect(.init(degrees: angle))
     }
@@ -112,25 +108,25 @@ struct ClockFace: View {
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
     var width: CGFloat
-    private var clockRadius: CGFloat {
-        return width * clockScaling / 2
-    }
 
     var body: some View {
+        let clockRadius = width * clockScaling / 2
+        // Note: thickness and length should not be less than 1 pixel, otherwise it would not be drawn => hence   max(thickness, 1)
+        let baseSize = max(0.01 * clockRadius, 1)
+
         ZStack {
             // Minute markings
-            clockMarkings(amount: 60, thickness: 0.01  * clockRadius, length: 0.04 * clockRadius)
+            clockMarkings(amount: 60, thickness: 1 * baseSize, length: 4 * baseSize, clockRadius: clockRadius)
 
             // Hour markings
-            clockMarkings(amount: 12, thickness: 0.015 * clockRadius, length: 0.06 * clockRadius)
+            clockMarkings(amount: 12, thickness: 2 * baseSize, length: 6 * baseSize, clockRadius: clockRadius)
 
             // Larger three hour markings
-            clockMarkings(amount: 4, thickness: 0.02 * clockRadius, length: 0.08 * clockRadius)
-
+            clockMarkings(amount: 4, thickness: 3 * baseSize, length: 8 * baseSize, clockRadius: clockRadius)
         }
     }
     
-    func clockMarkings(amount: Int, thickness: CGFloat, length: CGFloat) -> some View {
+    func clockMarkings(amount: Int, thickness: CGFloat, length: CGFloat, clockRadius: CGFloat) -> some View {
         // see https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-views-in-a-loop-using-foreach
         // The .id(: \.self)  is required when you use variables in the range 0..<amount
         return ForEach(0..<amount, id: \.self) { i in
