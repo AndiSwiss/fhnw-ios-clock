@@ -10,14 +10,14 @@ struct MainView: View {
     
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
-    @State var clockScaling: Double = 0
+    @State var clockScaling: Double = 0.9
 
     var body: some View {
         VStack {
             Spacer(minLength: 0)
-            ClockView(viewModel: viewModel)
+            ClockView(viewModel: viewModel, clockScaling: $clockScaling)
                 .onAppear() {
-                    withAnimation(Animation.easeInOut(duration: 0.5)) {
+                    withAnimation(Animation.easeInOut(duration: 0.8)) {
                         viewModel.updateTime()
                     }
                 }
@@ -28,8 +28,10 @@ struct MainView: View {
                 }
             
             Spacer(minLength: 0)
-            Slider(value: $clockScaling, in: 0.3...1.0)
-            Text("Clock scaling: \(clockScaling, specifier: "%.1f")")
+            Slider(value: $clockScaling, in: 0.1...0.9)
+                .padding()
+            Text("ClockScaling: \(clockScaling, specifier: "%.2f")")
+            Spacer(minLength: 0)
         }
         .padding()
     }
@@ -39,25 +41,33 @@ struct MainView: View {
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-
+    
+    // MARK: - Dynamic Draw Scaling
+    @Binding var clockScaling: Double
+    @State var width = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+    private var clockRadius: CGFloat {
+        return width * clockScaling / 2
+    }
+   
+    
     var body: some View {
         ZStack {
-            ClockFace()
+            ClockFace(clockScaling: $clockScaling, width: $width)
             // Hour
             // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
             //       the WatchHands get redrawn properly
-            WatchHand(thickness: 8, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree())
-            
+            WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: $clockScaling, width: $width)
+
             // Minute
-            WatchHand(thickness: 4, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree())
+            WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: $clockScaling, width: $width)
 
             // Second
-            WatchHand(thickness: 2.5, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree())
+            WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: $clockScaling, width: $width)
             
             // Center circle
             Circle()
                 .fill(Color.red)
-                .frame(width: 15, height: 15)
+                .frame(width: 0.08 * clockRadius, height: 0.08 * clockRadius)
         }
     }
 }
@@ -71,13 +81,15 @@ struct WatchHand: View {
     var color: Color
     var angle: Double
         
-    // MARK: - DrawingConstants
-    let width = UIScreen.main.bounds.width
-    let border: CGFloat = 100
-
+    // MARK: - Dynamic Draw Scaling
+    @Binding var clockScaling: Double
+    @Binding var width: CGFloat
+    private var clockRadius: CGFloat {
+        return width * clockScaling / 2
+    }
     
     var length : CGFloat {
-        return lengthPercentage * (width - border) / 2
+        return lengthPercentage * clockRadius
     }
     
     var body: some View {
@@ -92,20 +104,23 @@ struct WatchHand: View {
 
 // MARK: - ClockFace
 struct ClockFace: View {
-    // MARK: - DrawingConstants
-    let width = UIScreen.main.bounds.width
-    let border: CGFloat = 100
+    // MARK: - Dynamic Draw Scaling
+    @Binding var clockScaling: Double
+    @Binding var width: CGFloat
+    private var clockRadius: CGFloat {
+        return width * clockScaling / 2
+    }
 
     var body: some View {
         ZStack {
             // Minute markings
-            clockMarkings(amount: 60, thickness: 2, length: 8)
+            clockMarkings(amount: 60, thickness: 0.01  * clockRadius, length: 0.04 * clockRadius)
 
             // Hour markings
-            clockMarkings(amount: 12, thickness: 3, length: 12)
+            clockMarkings(amount: 12, thickness: 0.015 * clockRadius, length: 0.06 * clockRadius)
 
             // Larger three hour markings
-            clockMarkings(amount: 4, thickness: 4, length: 16)
+            clockMarkings(amount: 4, thickness: 0.02 * clockRadius, length: 0.08 * clockRadius)
 
         }
     }
@@ -116,7 +131,7 @@ struct ClockFace: View {
         return ForEach(0..<amount, id: \.self) { i in
             Rectangle().fill(Color.primary)
                 .frame(width: thickness, height: length)
-                .offset(y: (width - (border + length)) / 2)
+                .offset(y: clockRadius - length / 2)
                 .rotationEffect(.init(degrees: Double(i) * (360 / Double(amount))))
         }
     }
