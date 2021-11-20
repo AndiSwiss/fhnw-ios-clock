@@ -111,22 +111,25 @@ struct ClockFace: View {
 
     var body: some View {
         let clockRadius = width * clockScaling / 2
-        // Note: thickness and length should not be less than 1 pixel, otherwise it would not be drawn => hence   max(thickness, 1)
-        let baseSize = max(0.01 * clockRadius, 1)
 
         ZStack {
             // Minute markings
-            clockMarkings(amount: 60, thickness: 1 * baseSize, length: 4 * baseSize, clockRadius: clockRadius)
+            clockMarkings(amount: 60, thicknessMult: 1.0, lengthMult: 4.0, clockRadius: clockRadius, minSize: 1)
 
             // Hour markings
-            clockMarkings(amount: 12, thickness: 2 * baseSize, length: 6 * baseSize, clockRadius: clockRadius)
+            clockMarkings(amount: 12, thicknessMult: 2.0, lengthMult: 8.0, clockRadius: clockRadius, minSize: 2)
 
             // Larger three hour markings
-            clockMarkings(amount: 4, thickness: 3 * baseSize, length: 8 * baseSize, clockRadius: clockRadius)
+            clockMarkings(amount: 4, thicknessMult: 3.0, lengthMult: 10.0, clockRadius: clockRadius, minSize: 2)
         }
     }
     
-    func clockMarkings(amount: Int, thickness: CGFloat, length: CGFloat, clockRadius: CGFloat) -> some View {
+    func clockMarkings(amount: Int, thicknessMult: CGFloat, lengthMult: CGFloat, clockRadius: CGFloat, minSize: CGFloat) -> some View {
+        // Note: thickness and length should not be less than 1 pixel, otherwise it would not be drawn => hence   max(thickness, 1)
+        // And by replacing the fixed 1 pixel with 2 pixel for hour/three hour markings: hours are still visible even when clock is really small
+        let thickness = max(0.01 * clockRadius * thicknessMult, minSize)
+        let length = max(0.01 * clockRadius * lengthMult, minSize)
+
         // see https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-views-in-a-loop-using-foreach
         // The .id(: \.self)  is required when you use variables in the range 0..<amount
         return ForEach(0..<amount, id: \.self) { i in
