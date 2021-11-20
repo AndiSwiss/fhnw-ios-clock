@@ -14,7 +14,7 @@ struct MainView: View {
 
     var body: some View {
         VStack {
-            Spacer(minLength: 0)
+            
             
             ClockView(viewModel: viewModel, clockScaling: 0.2)
                 .onAppear() {
@@ -28,7 +28,7 @@ struct MainView: View {
                     }
                 }
             
-            Spacer(minLength: 0)
+            
             
             ClockView(viewModel: viewModel, clockScaling: 0.4)
                 .onAppear() {
@@ -42,7 +42,7 @@ struct MainView: View {
                     }
                 }
             
-            Spacer(minLength: 0)
+            
             
             ClockView(viewModel: viewModel, clockScaling: 0.9)
                 .onAppear() {
@@ -55,7 +55,7 @@ struct MainView: View {
                         viewModel.updateTime()
                     }
                 }
-            Spacer(minLength: 0)
+            
             
 
         }
@@ -70,30 +70,33 @@ struct ClockView: View {
     
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
-    @State var width = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-    private var clockRadius: CGFloat {
-        return width * clockScaling / 2
-    }
-   
+
     
     var body: some View {
-        ZStack {
-            ClockFace(clockScaling: clockScaling, width: $width)
-            // Hour
-            // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
-            //       the WatchHands get redrawn properly
-            WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: $width)
+        GeometryReader { geo in
+            ZStack {
+                
+                let width = geo.size.width
+                let clockRadius = width * clockScaling / 2
 
-            // Minute
-            WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: $width)
+                ClockFace(clockScaling: clockScaling, width: width)
+                // Hour
+                // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
+                //       the WatchHands get redrawn properly
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: width)
 
-            // Second
-            WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: $width)
-            
-            // Center circle
-            Circle()
-                .fill(Color.red)
-                .frame(width: 0.08 * clockRadius, height: 0.08 * clockRadius)
+                // Minute
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: width)
+
+                // Second
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: width)
+                
+                // Center circle
+                Circle()
+                    .fill(Color.red)
+                    .frame(width: 0.08 * clockRadius, height: 0.08 * clockRadius)
+            }
+            .frame(width: geo.size.width)
         }
     }
 }
@@ -109,7 +112,7 @@ struct WatchHand: View {
         
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
-    @Binding var width: CGFloat
+    var width: CGFloat
     private var clockRadius: CGFloat {
         return width * clockScaling / 2
     }
@@ -132,7 +135,7 @@ struct WatchHand: View {
 struct ClockFace: View {
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
-    @Binding var width: CGFloat
+    var width: CGFloat
     private var clockRadius: CGFloat {
         return width * clockScaling / 2
     }
