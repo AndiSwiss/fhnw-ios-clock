@@ -4,7 +4,16 @@ import SwiftUI
 struct MainView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-    @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
+    
+    // Note: you have to choose
+    //    in: .common
+    // instead of
+    //    in: .default
+    // This way, the timer stays enabled while a user scrolls inthe ScrollView
+    // and thus updates the clock and executes the associated animations
+    // See section "Working with runloops"
+    // https://www.hackingwithswift.com/articles/117/the-ultimate-guide-to-timer
+    @State private var receiver = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     
     // MARK: - Drawing Constants
     let clockSizeFactor = 0.2
