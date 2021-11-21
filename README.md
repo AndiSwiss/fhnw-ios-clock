@@ -72,7 +72,7 @@ The icon-sets itself were generated based on the SVG-export of Figma with https:
 
 
 
-### iPhone 13 Pro Max
+### iPod Touch (7th generation)
 
 <img src="doc/ipod_touch/1_start_ipod_touch.png" alt="1_start_ipod_touch" width="300" /><img src="doc/ipod_touch/2_detail_ipod_touch.png" alt="2_detail_ipod_touch" width="300" />
 
@@ -82,7 +82,7 @@ The icon-sets itself were generated based on the SVG-export of Figma with https:
 
 
 
-### iPhone 13 Pro Max
+### iPad Pro 12.9-inch
 
 <img src="doc/ipad_pro/1_start_ipad_pro.png" alt="1_start_ipad_pro" width="300" /><img src="doc/ipad_pro/2_detail_ipad_pro.png" alt="2_detail_ipad_pro" width="300" />
 
