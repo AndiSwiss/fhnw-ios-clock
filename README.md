@@ -69,11 +69,11 @@ The icon-sets itself were generated based on the SVG-export of Figma with https:
 
 ### iPhone 13
 
-<img src="doc/iphone13/1_start_iphone13.png" alt="1_start_iphone13" style="zoom:25%;" /><img src="doc/iphone13/2_detail_iphone13.png" alt="2_detail_iphone13" style="zoom:25%;" />
+<img src="doc/iphone13/1_start_iphone13.png" alt="1_start_iphone13" width="200" /><img src="doc/iphone13/2_detail_iphone13.png" alt="2_detail_iphone13" width="200" />
 
 
 
-<img src="doc/iphone13/3_start_portrait_iphone13.png" alt="3_start_portrait_iphone13" style="zoom:25%;" /> <img src="doc/iphone13/4_detail_portrait_iphone13.png" alt="4_detail_portrait_iphone13" style="zoom:25%;" />
+<img src="doc/iphone13/3_start_portrait_iphone13.png" alt="3_start_portrait_iphone13" width="200" /> <img src="doc/iphone13/4_detail_portrait_iphone13.png" alt="4_detail_portrait_iphone13" width="200" />
 
 
 
