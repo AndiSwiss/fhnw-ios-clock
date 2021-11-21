@@ -1,8 +1,3 @@
-//
-//  ContentView.swift
-//  fhnw-ios-clock
-//
-
 import SwiftUI
 
 // MARK: - Main View
