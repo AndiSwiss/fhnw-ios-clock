@@ -12,10 +12,10 @@ struct MainView: View {
                 ForEach(viewModel.timeZones) {timeZone in
                     HStack {
                         Text(timeZone.city)
-                            .dynamicTypeSize(.xxLarge)
+                            .font(.title)
                         Spacer()
                         ClockView(viewModel: viewModel, timeZone: timeZone)
-                            .frame(height: 70)
+                            .frame(width: 70, height: 70)
                     }
                     .padding()
                 }
