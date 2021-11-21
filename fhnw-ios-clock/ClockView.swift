@@ -10,9 +10,16 @@ struct MainView: View {
         ScrollView {
             VStack(spacing: 10) {
                 ForEach(viewModel.timeZones) {timeZone in
-                    ClockView(viewModel: viewModel, timeZone: timeZone)
-                        .frame(height: 100)
+                    HStack {
+                        Text(timeZone.city)
+                            .dynamicTypeSize(.xxLarge)
+                        Spacer()
+                        ClockView(viewModel: viewModel, timeZone: timeZone)
+                            .frame(height: 70)
+                    }
+                    .padding()
                 }
+                .background(.thinMaterial)
             }
         }
         .padding()
