@@ -54,47 +54,39 @@ The icon-sets itself were generated based on the SVG-export of Figma with https:
 
 ### iPhone 13 Pro Max
 
-<img src="doc/iphone13_pro_max/1_start_iphone13_pro_max.png" alt="1_start_iphone13_pro_max" width="300" />
-<img src="doc/iphone13_pro_max/2_detail_iphone13_pro_max.png" alt="2_detail_iphone13_pro_max" width="300" />
+<img src="doc/iphone13_pro_max/1_start_iphone13_pro_max.png" alt="1_start_iphone13_pro_max" width="300" /><img src="doc/iphone13_pro_max/2_detail_iphone13_pro_max.png" alt="2_detail_iphone13_pro_max" width="300" />
 
 
 
-<img src="doc/iphone13_pro_max/3_start_portrait_iphone13_pro_max.png" alt="3_start_portrait_iphone13_pro_max" width="300" />
-<img src="doc/iphone13_pro_max/4_detail_portrait_iphone13_pro_max.png" alt="4_detail_portrait_iphone13_pro_max" width="300" />
+<img src="doc/iphone13_pro_max/3_start_portrait_iphone13_pro_max.png" alt="3_start_portrait_iphone13_pro_max" width="300" /><img src="doc/iphone13_pro_max/4_detail_portrait_iphone13_pro_max.png" alt="4_detail_portrait_iphone13_pro_max" width="300" />
 
 
 
 ### iPhone 13
 
-<img src="doc/iphone13/1_start_iphone13.png" alt="1_start_iphone13" width="300" />
-<img src="doc/iphone13/2_detail_iphone13.png" alt="2_detail_iphone13" width="300" />
+<img src="doc/iphone13/1_start_iphone13.png" alt="1_start_iphone13" width="300" /><img src="doc/iphone13/2_detail_iphone13.png" alt="2_detail_iphone13" width="300" />
 
 
 
-<img src="doc/iphone13/3_start_portrait_iphone13.png" alt="3_start_portrait_iphone13" width="300" />
-<img src="doc/iphone13/4_detail_portrait_iphone13.png" alt="4_detail_portrait_iphone13" width="300" />
-
-
-
-### iPhone 13 Pro Max
-
-<img src="doc/ipod_touch/1_start_ipod_touch.png" alt="1_start_ipod_touch" width="300" />
-<img src="doc/ipod_touch/2_detail_ipod_touch.png" alt="2_detail_ipod_touch" width="300" />
-
-
-
-<img src="doc/ipod_touch/3_start_portrait_ipod_touch.png" alt="3_start_portrait_ipod_touch" width="300" />
-<img src="doc/ipod_touch/4_detail_portrait_ipod_touch.png" alt="4_detail_portrait_ipod_touch" width="300" />
+<img src="doc/iphone13/3_start_portrait_iphone13.png" alt="3_start_portrait_iphone13" width="300" /><img src="doc/iphone13/4_detail_portrait_iphone13.png" alt="4_detail_portrait_iphone13" width="300" />
 
 
 
 ### iPhone 13 Pro Max
 
-<img src="doc/ipad_pro/1_start_ipad_pro.png" alt="1_start_ipad_pro" width="300" />
-<img src="doc/ipad_pro/2_detail_ipad_pro.png" alt="2_detail_ipad_pro" width="300" />
+<img src="doc/ipod_touch/1_start_ipod_touch.png" alt="1_start_ipod_touch" width="300" /><img src="doc/ipod_touch/2_detail_ipod_touch.png" alt="2_detail_ipod_touch" width="300" />
 
 
 
-<img src="doc/ipad_pro/3_start_portrait_ipad_pro.png" alt="3_start_portrait_ipad_pro" width="300" />
-<img src="doc/ipad_pro/4_detail_portrait_ipad_pro.png" alt="4_detail_portrait_ipad_pro" width="300" />
+<img src="doc/ipod_touch/3_start_portrait_ipod_touch.png" alt="3_start_portrait_ipod_touch" width="300" /><img src="doc/ipod_touch/4_detail_portrait_ipod_touch.png" alt="4_detail_portrait_ipod_touch" width="300" />
+
+
+
+### iPhone 13 Pro Max
+
+<img src="doc/ipad_pro/1_start_ipad_pro.png" alt="1_start_ipad_pro" width="300" /><img src="doc/ipad_pro/2_detail_ipad_pro.png" alt="2_detail_ipad_pro" width="300" />
+
+
+
+<img src="doc/ipad_pro/3_start_portrait_ipad_pro.png" alt="3_start_portrait_ipad_pro" width="300" /><img src="doc/ipad_pro/4_detail_portrait_ipad_pro.png" alt="4_detail_portrait_ipad_pro" width="300" />
 
