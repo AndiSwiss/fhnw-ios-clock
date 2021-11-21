@@ -16,6 +16,7 @@
 		60E4D94B2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */; };
 		60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */; };
 		60E556D02749002100F53B20 /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E556CF2749002100F53B20 /* ClockModel.swift */; };
+		DDEFF60A274A9F2A0046CFE9 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
 		60E556CF2749002100F53B20 /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
+		DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
 				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
 				60E4D9332745A6E100D4E6F1 /* Preview Content */,
+				DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */,
 			);
 			path = "fhnw-ios-clock";
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */,
 				60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */,
 				60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */,
+				DDEFF60A274A9F2A0046CFE9 /* DateTimeUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
