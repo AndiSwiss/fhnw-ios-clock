@@ -1,8 +1,3 @@
-//
-//  ContentView.swift
-//  fhnw-ios-clock
-//
-
 import SwiftUI
 
 // MARK: - Main View
@@ -11,28 +6,46 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
+    // MARK: - Drawing Constants
+    let clockSizeFactor = 0.2
+    let fontSizeFactor = 0.07
+    let startAnimationTime = 0.8
+    let animationTime = 0.5
+    
+    // MARK: - Body
     var body: some View {
-        GeometryReader { geo in
-            VStack {
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.18)
-                
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.28)
-                
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.48)
-
-            }
+        Text("World Clock")
+            .font(.largeTitle.bold())
             .padding()
-            .frame(height: geo.size.height)
+        
+        GeometryReader { geo in
+            let clockSize = min(geo.size.width, geo.size.height) * clockSizeFactor
+            let fontSize = min(geo.size.width, geo.size.height) * fontSizeFactor
+            
+            ScrollView {
+                VStack(spacing: 5) {
+                    ForEach(viewModel.timeZones) {timeZone in
+                        HStack {
+                            Text(timeZone.city)
+                                // make font size dependant on available width
+                                .font(.system(size: fontSize))
+                            
+                            Spacer()
+                            ClockView(viewModel: viewModel, timeZone: timeZone)
+                                .frame(width: clockSize, height: clockSize)
+                        }
+                        .padding()
+                    }
+                    .background(.thinMaterial)
+                }
+            }
             .onAppear() {
-                withAnimation(Animation.easeInOut(duration: 0.8)) {
+                withAnimation(Animation.easeInOut(duration: startAnimationTime)) {
                     viewModel.updateTime()
                 }
             }
             .onReceive(receiver) { _ in
-                withAnimation(Animation.easeInOut(duration: 0.5)) {
+                withAnimation(Animation.easeInOut(duration: animationTime)) {
                     viewModel.updateTime()
                 }
             }
@@ -45,23 +58,24 @@ struct MainView: View {
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-        
+    var timeZone: ClockModel.Timezone
+
     var body: some View {
         GeometryReader { geo in
             // Get the available size:
             let size = min(geo.size.width, geo.size.height)
             // calculate the clock radius
             let clockRadius = size / 2
-
+            
             ZStack {
                 ClockFace(size: size)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), size: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(timeZone: timeZone), size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), size: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(timeZone: timeZone), size: size)
 
                 // Second
                 WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), size: size)
@@ -87,10 +101,9 @@ struct WatchHand: View {
     var lengthPercentage: CGFloat
     var color: Color
     var angle: Double
-        
-    // MARK: - Dynamic Draw Scaling
     var size: CGFloat
 
+    // MARK: - Body
     var body: some View {
         let clockRadius = size / 2
         let length = lengthPercentage * clockRadius
@@ -107,9 +120,9 @@ struct WatchHand: View {
 
 // MARK: - ClockFace
 struct ClockFace: View {
-    // MARK: - Dynamic Draw Scaling
     var size: CGFloat
 
+    // MARK: - Body
     var body: some View {
         let clockRadius = size / 2
 

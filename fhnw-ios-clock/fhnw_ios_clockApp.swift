@@ -1,8 +1,3 @@
-//
-//  fhnw_ios_clockApp.swift
-//  fhnw-ios-clock
-//
-
 import SwiftUI
 
 @main
