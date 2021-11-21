@@ -6,6 +6,11 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
+    // MARK: - Drawing Constants
+    let clockSizeFactor = 0.2
+    let fontSizeFactor = 0.07
+    let startAnimationTime = 0.8
+    let animationTime = 0.5
     
     // MARK: - Body
     var body: some View {
@@ -14,11 +19,11 @@ struct MainView: View {
             .padding()
         
         GeometryReader { geo in
-            let clockSize = min(geo.size.width, geo.size.height) * 0.2
-            let fontSize = min(geo.size.width, geo.size.height) * 0.07
+            let clockSize = min(geo.size.width, geo.size.height) * clockSizeFactor
+            let fontSize = min(geo.size.width, geo.size.height) * fontSizeFactor
             
             ScrollView {
-                VStack(spacing: 10) {
+                VStack(spacing: 5) {
                     ForEach(viewModel.timeZones) {timeZone in
                         HStack {
                             Text(timeZone.city)
@@ -35,12 +40,12 @@ struct MainView: View {
                 }
             }
             .onAppear() {
-                withAnimation(Animation.easeInOut(duration: 0.8)) {
+                withAnimation(Animation.easeInOut(duration: startAnimationTime)) {
                     viewModel.updateTime()
                 }
             }
             .onReceive(receiver) { _ in
-                withAnimation(Animation.easeInOut(duration: 0.5)) {
+                withAnimation(Animation.easeInOut(duration: animationTime)) {
                     viewModel.updateTime()
                 }
             }
@@ -96,10 +101,9 @@ struct WatchHand: View {
     var lengthPercentage: CGFloat
     var color: Color
     var angle: Double
-        
-    // MARK: - Dynamic Draw Scaling
     var size: CGFloat
 
+    // MARK: - Body
     var body: some View {
         let clockRadius = size / 2
         let length = lengthPercentage * clockRadius
@@ -116,9 +120,9 @@ struct WatchHand: View {
 
 // MARK: - ClockFace
 struct ClockFace: View {
-    // MARK: - Dynamic Draw Scaling
     var size: CGFloat
 
+    // MARK: - Body
     var body: some View {
         let clockRadius = size / 2
 
