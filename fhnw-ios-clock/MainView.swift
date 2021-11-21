@@ -15,16 +15,16 @@ struct MainView: View {
     
     var body: some View {
         VStack {
-            ClockView(viewModel: viewModel, clockScaling: 0.2 * scaleValue)
+            ClockView(viewModel: viewModel, clockScaling: 0.3 * scaleValue)
             
             Slider(value: $scaleValue, in: 0.1...1.0)
                 .padding()
 
-            ClockView(viewModel: viewModel, clockScaling: 0.4 * scaleValue)
+            ClockView(viewModel: viewModel, clockScaling: 0.5 * scaleValue)
             
             ClockView(viewModel: viewModel, clockScaling: 0.9 * scaleValue)
         }
-        .padding()
+        //.padding()
         .onAppear() {
             withAnimation(Animation.easeInOut(duration: 0.8)) {
                 viewModel.updateTime()
@@ -50,28 +50,31 @@ struct ClockView: View {
     
     var body: some View {
         GeometryReader { geo in
-            let width = geo.size.width
-            let clockRadius = width * clockScaling / 2
+            let size = min(geo.size.width, geo.size.height)
+            let clockRadius = size * clockScaling / 2
 
             ZStack {
-                ClockFace(clockScaling: clockScaling, width: width)
+                ClockFace(clockScaling: clockScaling, width: size)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: width)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: width)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: size)
 
                 // Second
-                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: width)
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: size)
                 
                 // Center circle
                 Circle()
                     .fill(Color.red)
                     .frame(width: 0.08 * clockRadius, height: 0.08 * clockRadius)
             }
-            .frame(width: geo.size.width)
+            .frame(width: size)
+            .frame(width: geo.size.width, height: geo.size.height)
+            // Note: The 2nd .frame is used to automatically center the content, according to
+            // https://www.hackingwithswift.com/books/ios-swiftui/resizing-images-to-fit-the-screen-using-geometryreader
         }
     }
 }
