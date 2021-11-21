@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */; };
-		60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92F2745A6E000D4E6F1 /* ClockView.swift */; };
+		60E4D9302745A6E000D4E6F1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92F2745A6E000D4E6F1 /* MainView.swift */; };
 		60E4D9322745A6E100D4E6F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E4D9312745A6E100D4E6F1 /* Assets.xcassets */; };
 		60E4D9352745A6E100D4E6F1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E4D9342745A6E100D4E6F1 /* Preview Assets.xcassets */; };
 		60E4D93F2745A6E100D4E6F1 /* fhnw_ios_clockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D93E2745A6E100D4E6F1 /* fhnw_ios_clockTests.swift */; };
@@ -16,7 +16,9 @@
 		60E4D94B2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */; };
 		60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */; };
 		60E556D02749002100F53B20 /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E556CF2749002100F53B20 /* ClockModel.swift */; };
+		DD9F607E274AB9C4004BDA46 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9F607D274AB9C4004BDA46 /* ClockView.swift */; };
 		DDEFF60A274A9F2A0046CFE9 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */; };
+		DDEFF60E274AA5DC0046CFE9 /* ClockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEFF60D274AA5DC0046CFE9 /* ClockDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,7 @@
 /* Begin PBXFileReference section */
 		60E4D92A2745A6E000D4E6F1 /* fhnw-ios-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fhnw-ios-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockApp.swift; sourceTree = "<group>"; };
-		60E4D92F2745A6E000D4E6F1 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		60E4D92F2745A6E000D4E6F1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		60E4D9312745A6E100D4E6F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60E4D9342745A6E100D4E6F1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		60E4D93A2745A6E100D4E6F1 /* fhnw-ios-clockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fhnw-ios-clockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +51,9 @@
 		60E4D94A2745A6E100D4E6F1 /* fhnw_ios_clockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
 		60E556CF2749002100F53B20 /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
+		DD9F607D274AB9C4004BDA46 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
+		DDEFF60D274AA5DC0046CFE9 /* ClockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +105,14 @@
 			isa = PBXGroup;
 			children = (
 				60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */,
-				60E4D92F2745A6E000D4E6F1 /* ClockView.swift */,
+				60E4D92F2745A6E000D4E6F1 /* MainView.swift */,
+				DD9F607D274AB9C4004BDA46 /* ClockView.swift */,
 				60E556CF2749002100F53B20 /* ClockModel.swift */,
 				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
 				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
 				60E4D9332745A6E100D4E6F1 /* Preview Content */,
 				DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */,
+				DDEFF60D274AA5DC0046CFE9 /* ClockDetailView.swift */,
 			);
 			path = "fhnw-ios-clock";
 			sourceTree = "<group>";
@@ -267,8 +273,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				60E556D02749002100F53B20 /* ClockModel.swift in Sources */,
-				60E4D9302745A6E000D4E6F1 /* ClockView.swift in Sources */,
+				60E4D9302745A6E000D4E6F1 /* MainView.swift in Sources */,
+				DDEFF60E274AA5DC0046CFE9 /* ClockDetailView.swift in Sources */,
 				60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */,
+				DD9F607E274AB9C4004BDA46 /* ClockView.swift in Sources */,
 				60E4D9582745A93600D4E6F1 /* ClockViewModel.swift in Sources */,
 				DDEFF60A274A9F2A0046CFE9 /* DateTimeUtils.swift in Sources */,
 			);
@@ -488,7 +496,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JMY9M4V3S6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -513,7 +521,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JMY9M4V3S6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,69 +1,6 @@
+//
+//  ClockView.swift
 import SwiftUI
-
-// MARK: - Main View
-struct MainView: View {
-    
-    @ObservedObject var viewModel: ClockViewModel
-    @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
-    
-    // MARK: - Drawing Constants
-    let clockSizeFactor = 0.2
-    let fontSizeFactor = 0.07
-    let startAnimationTime = 0.8
-    let animationTime = 0.5
-    
-    // MARK: - Body
-    var body: some View {
-        Text("World Clock")
-            .font(.largeTitle.bold())
-            .padding()
-        
-        GeometryReader { geo in
-            let clockSize = min(geo.size.width, geo.size.height) * clockSizeFactor
-            let fontSize = min(geo.size.width, geo.size.height) * fontSizeFactor
-            
-            ScrollView {
-                VStack(spacing: 5) {
-                    ForEach(viewModel.timeZones) {tzConfig in
-                        TimeZoneListElement(clockSize: clockSize, fontSize: fontSize, date: viewModel.date, timeZoneConfiguration: tzConfig)
-                    }
-                    .background(.thinMaterial)
-                }
-            }
-            .onAppear() {
-                withAnimation(Animation.easeInOut(duration: startAnimationTime)) {
-                    viewModel.updateTime()
-                }
-            }
-            .onReceive(receiver) { _ in
-                withAnimation(Animation.easeInOut(duration: animationTime)) {
-                    viewModel.updateTime()
-                }
-            }
-        }
-    }
-}
-
-struct TimeZoneListElement : View {
-    var clockSize: Double
-    var fontSize: Double
-    var date: Date
-    var timeZoneConfiguration: ClockModel.TimeZoneConfiguration
-    
-    var body: some View {
-        let tzComponents = DateTimeUtils.getLocalizedDateAsComponents(date: date, timeZone: timeZoneConfiguration.timeZone)
-        HStack {
-            Text(timeZoneConfiguration.name)
-                // make font size dependant on available width
-                .font(.system(size: fontSize))
-            
-            Spacer()
-            ClockView(components: tzComponents)
-                .frame(width: clockSize, height: clockSize)
-        }
-        .padding()
-    }
-}
 
 // MARK: - Whole Clock
 struct ClockView: View {
@@ -96,6 +33,7 @@ struct ClockView: View {
             }
             .frame(width: size)
             .frame(width: geo.size.width, height: geo.size.height)
+            .animation(.easeInOut(duration: 0.5), value: components)
             // Note: The 2nd .frame is used to automatically center the content, according to
             // https://www.hackingwithswift.com/books/ios-swiftui/resizing-images-to-fit-the-screen-using-geometryreader
         }
@@ -166,11 +104,10 @@ struct ClockFace: View {
 
 
 // MARK: - Preview Provider
-struct ContentView_Previews: PreviewProvider {
+struct ClockView_Previews: PreviewProvider {
     // Here, you can configure special settings for the in-built preview
     // see https://developer.apple.com/documentation/swiftui/previewprovider
     static var previews: some View {
-        let viewModel = ClockViewModel()
-        return MainView(viewModel: viewModel)
+        return ClockView(components: DateComponents.init(hour: 2, minute: 24, second: 48))
     }
 }
