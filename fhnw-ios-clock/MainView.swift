@@ -52,14 +52,17 @@ struct TimeZoneListElement : View {
     var body: some View {
         let tzComponents = DateTimeUtils.getLocalizedDateAsComponents(date: date, timeZone: tzConfig.timeZone)
     
-        Text(tzConfig.name)
-            // make font size dependant on available width
-            .font(.system(size: fontSize))
-        
-        Spacer()
+        HStack {
+            Text(tzConfig.name)
+                // make font size dependant on available width
+                .font(.system(size: fontSize))
+            
+            Spacer()
 
-        ClockView(components: tzComponents)
-            .frame(width: clockSize, height: clockSize)
+            ClockView(components: tzComponents)
+                .frame(width: clockSize, height: clockSize)
+        }
+        .padding()
     }
 }
 

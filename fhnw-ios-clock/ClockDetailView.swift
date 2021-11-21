@@ -11,27 +11,29 @@ struct ClockDetailView: View {
         
         VStack {
             if horizontalSizeClass == .compact {
-                Spacer()
                 VStack {
+                    Spacer()
                     ClockView(components: tzComponents)
+                    Spacer()
                     Text(tzConfig.name)
                         .font(.largeTitle)
                         .padding()
+                    Spacer()
                 }
-                Spacer()
             } else {
-                Spacer()
                 HStack {
+                    Spacer()
                     ClockView(components: tzComponents)
+                        .frame(maxWidth: 500)
+                    Spacer()
                     Text(tzConfig.name)
                         .font(.largeTitle)
                         .padding()
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .padding()
-        .navigationTitle(tzConfig.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
