@@ -14,13 +14,13 @@ struct MainView: View {
     var body: some View {
         GeometryReader { geo in
             VStack {
-                ClockView(viewModel: viewModel, clockScaling: 1)
+                ClockView(viewModel: viewModel)
                     .frame(height: geo.size.height * 0.18)
                 
-                ClockView(viewModel: viewModel, clockScaling: 1)
+                ClockView(viewModel: viewModel)
                     .frame(height: geo.size.height * 0.28)
                 
-                ClockView(viewModel: viewModel, clockScaling: 1)
+                ClockView(viewModel: viewModel)
                     .frame(height: geo.size.height * 0.48)
 
             }
@@ -45,30 +45,26 @@ struct MainView: View {
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-    
-    // MARK: - Dynamic Draw Scaling
-    var clockScaling: Double
-
-    
+        
     var body: some View {
         GeometryReader { geo in
             // Get the available size:
             let size = min(geo.size.width, geo.size.height)
             // calculate the clock radius
-            let clockRadius = size * clockScaling / 2
+            let clockRadius = size / 2
 
             ZStack {
-                ClockFace(clockScaling: clockScaling, size: size)
+                ClockFace(size: size)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, size: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, size: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), size: size)
 
                 // Second
-                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, size: size)
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), size: size)
                 
                 // Center circle
                 Circle()
@@ -93,11 +89,10 @@ struct WatchHand: View {
     var angle: Double
         
     // MARK: - Dynamic Draw Scaling
-    var clockScaling: Double
     var size: CGFloat
 
     var body: some View {
-        let clockRadius = size * clockScaling / 2
+        let clockRadius = size / 2
         let length = lengthPercentage * clockRadius
         
         RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -113,11 +108,10 @@ struct WatchHand: View {
 // MARK: - ClockFace
 struct ClockFace: View {
     // MARK: - Dynamic Draw Scaling
-    var clockScaling: Double
     var size: CGFloat
 
     var body: some View {
-        let clockRadius = size * clockScaling / 2
+        let clockRadius = size / 2
 
         ZStack {
             // Minute markings
