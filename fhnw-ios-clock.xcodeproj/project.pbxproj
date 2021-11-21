@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60B78B8B274ABC9F0083CAD9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60B78B8A274ABC9F0083CAD9 /* Launch Screen.storyboard */; };
 		60E4D92E2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */; };
 		60E4D9302745A6E000D4E6F1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E4D92F2745A6E000D4E6F1 /* MainView.swift */; };
 		60E4D9322745A6E100D4E6F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E4D9312745A6E100D4E6F1 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		60B78B8A274ABC9F0083CAD9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		60E4D92A2745A6E000D4E6F1 /* fhnw-ios-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fhnw-ios-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fhnw_ios_clockApp.swift; sourceTree = "<group>"; };
 		60E4D92F2745A6E000D4E6F1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		60E4D9212745A6DF00D4E6F1 = {
 			isa = PBXGroup;
 			children = (
+				60B78B8A274ABC9F0083CAD9 /* Launch Screen.storyboard */,
 				60E4D92C2745A6E000D4E6F1 /* fhnw-ios-clock */,
 				60E4D93D2745A6E100D4E6F1 /* fhnw-ios-clockTests */,
 				60E4D9472745A6E100D4E6F1 /* fhnw-ios-clockUITests */,
@@ -246,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60B78B8B274ABC9F0083CAD9 /* Launch Screen.storyboard in Resources */,
 				60E4D9352745A6E100D4E6F1 /* Preview Assets.xcassets in Resources */,
 				60E4D9322745A6E100D4E6F1 /* Assets.xcassets in Resources */,
 			);
@@ -442,9 +446,10 @@
 				DEVELOPMENT_TEAM = JMY9M4V3S6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "fhnw-ios-clock/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -471,9 +476,10 @@
 				DEVELOPMENT_TEAM = JMY9M4V3S6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "fhnw-ios-clock/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
