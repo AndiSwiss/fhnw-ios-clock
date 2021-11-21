@@ -12,8 +12,10 @@ struct MainView: View {
         Text("World Clock")
             .font(.largeTitle.bold())
             .padding()
+        
         GeometryReader { geo in
-            let clockSize = geo.size.width * 0.2
+            let clockSize = min(geo.size.width, geo.size.height) * 0.2
+            let fontSize = min(geo.size.width, geo.size.height) * 0.07
             
             ScrollView {
                 VStack(spacing: 10) {
@@ -21,7 +23,7 @@ struct MainView: View {
                         HStack {
                             Text(timeZone.city)
                                 // make font size dependant on available width
-                                .font(.system(size: geo.size.width * 0.07))
+                                .font(.system(size: fontSize))
                             
                             Spacer()
                             ClockView(viewModel: viewModel, timeZone: timeZone)
