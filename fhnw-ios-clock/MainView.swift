@@ -71,7 +71,7 @@ struct TimeZoneListElement : View {
             ClockView(components: tzComponents)
                 .frame(width: clockSize, height: clockSize)
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
