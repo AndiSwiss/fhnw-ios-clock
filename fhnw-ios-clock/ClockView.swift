@@ -24,14 +24,15 @@ struct MainView: View {
             
             ScrollView {
                 VStack(spacing: 5) {
-                    ForEach(viewModel.timeZones) {timeZone in
+                    ForEach(viewModel.timeZones) {timeZoneConfiguration in
+                        let tzComponents = viewModel.getLocalDateComponents(timeZone: timeZoneConfiguration.timeZone)
                         HStack {
-                            Text(timeZone.city)
+                            Text(timeZoneConfiguration.name)
                                 // make font size dependant on available width
                                 .font(.system(size: fontSize))
                             
                             Spacer()
-                            ClockView(viewModel: viewModel, timeZone: timeZone)
+                            ClockView(viewModel: viewModel, components: tzComponents)
                                 .frame(width: clockSize, height: clockSize)
                         }
                         .padding()
@@ -53,12 +54,11 @@ struct MainView: View {
     }
 }
 
-
 // MARK: - Whole Clock
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-    var timeZone: ClockModel.Timezone
+    var components: DateComponents
 
     var body: some View {
         GeometryReader { geo in
@@ -72,13 +72,13 @@ struct ClockView: View {
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(timeZone: timeZone), size: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(components: components), size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(timeZone: timeZone), size: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(components: components), size: size)
 
                 // Second
-                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), size: size)
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(components: components), size: size)
                 
                 // Center circle
                 Circle()
