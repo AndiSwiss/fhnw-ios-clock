@@ -11,28 +11,30 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
-    @State var scaleValue: CGFloat = 1.0
-    
     var body: some View {
-        VStack {
-            ClockView(viewModel: viewModel, clockScaling: 0.3 * scaleValue)
-            
-            Slider(value: $scaleValue, in: 0.1...1.0)
-                .padding()
+        GeometryReader { geo in
+            VStack {
+                ClockView(viewModel: viewModel, clockScaling: 1)
+                    .frame(height: geo.size.height * 0.18)
+                
+                ClockView(viewModel: viewModel, clockScaling: 1)
+                    .frame(height: geo.size.height * 0.28)
+                
+                ClockView(viewModel: viewModel, clockScaling: 1)
+                    .frame(height: geo.size.height * 0.48)
 
-            ClockView(viewModel: viewModel, clockScaling: 0.5 * scaleValue)
-            
-            ClockView(viewModel: viewModel, clockScaling: 0.9 * scaleValue)
-        }
-        //.padding()
-        .onAppear() {
-            withAnimation(Animation.easeInOut(duration: 0.8)) {
-                viewModel.updateTime()
             }
-        }
-        .onReceive(receiver) { _ in
-            withAnimation(Animation.easeInOut(duration: 0.5)) {
-                viewModel.updateTime()
+            .padding()
+            .frame(height: geo.size.height)
+            .onAppear() {
+                withAnimation(Animation.easeInOut(duration: 0.8)) {
+                    viewModel.updateTime()
+                }
+            }
+            .onReceive(receiver) { _ in
+                withAnimation(Animation.easeInOut(duration: 0.5)) {
+                    viewModel.updateTime()
+                }
             }
         }
     }
@@ -50,21 +52,23 @@ struct ClockView: View {
     
     var body: some View {
         GeometryReader { geo in
+            // Get the available size:
             let size = min(geo.size.width, geo.size.height)
+            // calculate the clock radius
             let clockRadius = size * clockScaling / 2
 
             ZStack {
-                ClockFace(clockScaling: clockScaling, width: size)
+                ClockFace(clockScaling: clockScaling, size: size)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, width: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), clockScaling: clockScaling, size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, width: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), clockScaling: clockScaling, size: size)
 
                 // Second
-                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, width: size)
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), clockScaling: clockScaling, size: size)
                 
                 // Center circle
                 Circle()
@@ -90,10 +94,10 @@ struct WatchHand: View {
         
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
-    var width: CGFloat
+    var size: CGFloat
 
     var body: some View {
-        let clockRadius = width * clockScaling / 2
+        let clockRadius = size * clockScaling / 2
         let length = lengthPercentage * clockRadius
         
         RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -110,10 +114,10 @@ struct WatchHand: View {
 struct ClockFace: View {
     // MARK: - Dynamic Draw Scaling
     var clockScaling: Double
-    var width: CGFloat
+    var size: CGFloat
 
     var body: some View {
-        let clockRadius = width * clockScaling / 2
+        let clockRadius = size * clockScaling / 2
 
         ZStack {
             // Minute markings
