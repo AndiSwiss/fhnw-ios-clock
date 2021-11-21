@@ -24,18 +24,8 @@ struct MainView: View {
             
             ScrollView {
                 VStack(spacing: 5) {
-                    ForEach(viewModel.timeZones) {timeZoneConfiguration in
-                        let tzComponents = viewModel.getLocalDateComponents(timeZone: timeZoneConfiguration.timeZone)
-                        HStack {
-                            Text(timeZoneConfiguration.name)
-                                // make font size dependant on available width
-                                .font(.system(size: fontSize))
-                            
-                            Spacer()
-                            ClockView(viewModel: viewModel, components: tzComponents)
-                                .frame(width: clockSize, height: clockSize)
-                        }
-                        .padding()
+                    ForEach(viewModel.timeZones) {tzConfig in
+                        TimeZoneListElement(clockSize: clockSize, fontSize: fontSize, date: viewModel.date, timeZoneConfiguration: tzConfig)
                     }
                     .background(.thinMaterial)
                 }
@@ -54,10 +44,29 @@ struct MainView: View {
     }
 }
 
+struct TimeZoneListElement : View {
+    var clockSize: Double
+    var fontSize: Double
+    var date: Date
+    var timeZoneConfiguration: ClockModel.TimeZoneConfiguration
+    
+    var body: some View {
+        let tzComponents = DateTimeUtils.getLocalizedDateAsComponents(date: date, timeZone: timeZoneConfiguration.timeZone)
+        HStack {
+            Text(timeZoneConfiguration.name)
+                // make font size dependant on available width
+                .font(.system(size: fontSize))
+            
+            Spacer()
+            ClockView(components: tzComponents)
+                .frame(width: clockSize, height: clockSize)
+        }
+        .padding()
+    }
+}
+
 // MARK: - Whole Clock
 struct ClockView: View {
-    
-    @ObservedObject var viewModel: ClockViewModel
     var components: DateComponents
 
     var body: some View {
@@ -72,13 +81,13 @@ struct ClockView: View {
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(components: components), size: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: ClockViewModel.getHourDegree(components: components), size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(components: components), size: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: ClockViewModel.getMinDegree(components: components), size: size)
 
                 // Second
-                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(components: components), size: size)
+                WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: ClockViewModel.getSecDegree(components: components), size: size)
                 
                 // Center circle
                 Circle()

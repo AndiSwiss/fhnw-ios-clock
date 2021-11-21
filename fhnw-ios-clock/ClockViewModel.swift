@@ -29,29 +29,27 @@ class ClockViewModel: ObservableObject {
         return model.timeZones
     }
     
+    var date: Date {
+        return model.date
+    }
+    
     // MARK: - Update time
     func updateTime() {
         model.date = Date()
     }
     
-    func getLocalDateComponents(timeZone: TimeZone) -> DateComponents {
-       var calendar = Calendar.current
-       calendar.timeZone = timeZone
-       return calendar.dateComponents([.hour, .minute, .second], from: model.date)
-    }
-    
     // MARK: - Angle conversion
-    func getHourDegree(components: DateComponents) -> Double {
+    static func getHourDegree(components: DateComponents) -> Double {
         // 360 degrees / 12 = 30 degrees
         (Double(components.hour!) + Double(components.minute!) / 60) * 30
     }
     
-    func getMinDegree(components: DateComponents) -> Double {
+    static func getMinDegree(components: DateComponents) -> Double {
         // 360 degrees / 60 = 6 degrees
         (Double(components.minute!) * 6)
     }
     
-    func getSecDegree(components: DateComponents) -> Double {
+    static func getSecDegree(components: DateComponents) -> Double {
         // 360 degrees / 60 = 6 degrees
         Double(components.second!) * 6
     }
