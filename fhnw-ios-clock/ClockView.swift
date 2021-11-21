@@ -9,8 +9,8 @@ struct MainView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                ForEach(0..<10) {_ in
-                    ClockView(viewModel: viewModel)
+                ForEach(viewModel.timeZones) {timeZone in
+                    ClockView(viewModel: viewModel, timeZone: timeZone)
                         .frame(height: 100)
                 }
             }
@@ -34,23 +34,24 @@ struct MainView: View {
 struct ClockView: View {
     
     @ObservedObject var viewModel: ClockViewModel
-        
+    var timeZone: ClockModel.Timezone
+
     var body: some View {
         GeometryReader { geo in
             // Get the available size:
             let size = min(geo.size.width, geo.size.height)
             // calculate the clock radius
             let clockRadius = size / 2
-
+            
             ZStack {
                 ClockFace(size: size)
                 // Hour
                 // Note: Since 'currentTime' gets updated via the .onAppear and .onReceive,
                 //       the WatchHands get redrawn properly
-                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(), size: size)
+                WatchHand(thickness: 0.04 * clockRadius, lengthPercentage: 0.7, color: Color.black, angle: viewModel.getHourDegree(timeZone: timeZone), size: size)
 
                 // Minute
-                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(), size: size)
+                WatchHand(thickness: 0.02 * clockRadius, lengthPercentage: 0.9, color: Color.black, angle: viewModel.getMinDegree(timeZone: timeZone), size: size)
 
                 // Second
                 WatchHand(thickness: 0.012 * clockRadius, lengthPercentage: 0.92, color: Color.red, angle: viewModel.getSecDegree(), size: size)

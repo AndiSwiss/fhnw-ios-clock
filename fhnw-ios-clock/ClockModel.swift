@@ -3,12 +3,7 @@ import Foundation
 // Model for the app
 struct ClockModel {
     var time: Time
-    var timeZone: TimeZone
-    
-    static let timeZones: [TimeZone] = [
-        TimeZone(city: "Zürich", hourOffset: 0, minOffset: 0),
-        TimeZone(city: "London", hourOffset: 1, minOffset: 0)
-    ]
+    var currentMinOffset: Int
     
     struct Time {
         var hour: Int
@@ -16,9 +11,13 @@ struct ClockModel {
         var sec: Int
     }
     
-    struct TimeZone {
+    struct Timezone: Identifiable {
+        // Note: the identifiable allows easy iteration with ForEach, see
+        // https://www.hackingwithswift.com/quick-start/swiftui/how-to-fix-initializer-init-rowcontent-requires-that-sometype-conform-to-identifiable
+        // and
+        // https://www.hackingwithswift.com/books/ios-swiftui/working-with-identifiable-items-in-swiftui
+        var id = UUID()
         var city: String
-        var hourOffset: Int
         var minOffset: Int
     }
 }
