@@ -7,29 +7,23 @@ struct MainView: View {
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
     var body: some View {
-        GeometryReader { geo in
-            VStack {
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.18)
-                
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.28)
-                
-                ClockView(viewModel: viewModel)
-                    .frame(height: geo.size.height * 0.48)
-
-            }
-            .padding()
-            .frame(height: geo.size.height)
-            .onAppear() {
-                withAnimation(Animation.easeInOut(duration: 0.8)) {
-                    viewModel.updateTime()
+        ScrollView {
+            VStack(spacing: 10) {
+                ForEach(0..<10) {_ in
+                    ClockView(viewModel: viewModel)
+                        .frame(height: 100)
                 }
             }
-            .onReceive(receiver) { _ in
-                withAnimation(Animation.easeInOut(duration: 0.5)) {
-                    viewModel.updateTime()
-                }
+        }
+        .padding()
+        .onAppear() {
+            withAnimation(Animation.easeInOut(duration: 0.8)) {
+                viewModel.updateTime()
+            }
+        }
+        .onReceive(receiver) { _ in
+            withAnimation(Animation.easeInOut(duration: 0.5)) {
+                viewModel.updateTime()
             }
         }
     }

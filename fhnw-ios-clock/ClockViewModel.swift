@@ -17,7 +17,7 @@ class ClockViewModel: ObservableObject {
     
     static func createClock() -> ClockModel {
         // Initialize with 0 for a starting animation to actual current time
-        return ClockModel(time: ClockModel.Time(hour: 0, min: 0, sec: 0), city: "", hourOffset: 0, minOffset: 0)
+        return ClockModel(time: ClockModel.Time(hour: 0, min: 0, sec: 0), timeZone: ClockModel.timeZones.first!)
     }
     
     
