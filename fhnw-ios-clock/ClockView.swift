@@ -6,31 +6,41 @@ struct MainView: View {
     @ObservedObject var viewModel: ClockViewModel
     @State private var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
     
+    
+    // MARK: - Body
     var body: some View {
-        ScrollView {
-            VStack(spacing: 10) {
-                ForEach(viewModel.timeZones) {timeZone in
-                    HStack {
-                        Text(timeZone.city)
-                            .font(.title)
-                        Spacer()
-                        ClockView(viewModel: viewModel, timeZone: timeZone)
-                            .frame(width: 70, height: 70)
+        Text("World Clock")
+            .font(.largeTitle.bold())
+            .padding()
+        GeometryReader { geo in
+            let clockSize = geo.size.width * 0.2
+            
+            ScrollView {
+                VStack(spacing: 10) {
+                    ForEach(viewModel.timeZones) {timeZone in
+                        HStack {
+                            Text(timeZone.city)
+                                // make font size dependant on available width
+                                .font(.system(size: geo.size.width * 0.07))
+                            
+                            Spacer()
+                            ClockView(viewModel: viewModel, timeZone: timeZone)
+                                .frame(width: clockSize, height: clockSize)
+                        }
+                        .padding()
                     }
-                    .padding()
+                    .background(.thinMaterial)
                 }
-                .background(.thinMaterial)
             }
-        }
-        .padding()
-        .onAppear() {
-            withAnimation(Animation.easeInOut(duration: 0.8)) {
-                viewModel.updateTime()
+            .onAppear() {
+                withAnimation(Animation.easeInOut(duration: 0.8)) {
+                    viewModel.updateTime()
+                }
             }
-        }
-        .onReceive(receiver) { _ in
-            withAnimation(Animation.easeInOut(duration: 0.5)) {
-                viewModel.updateTime()
+            .onReceive(receiver) { _ in
+                withAnimation(Animation.easeInOut(duration: 0.5)) {
+                    viewModel.updateTime()
+                }
             }
         }
     }
