@@ -107,15 +107,15 @@
 		60E4D92C2745A6E000D4E6F1 /* fhnw-ios-clock */ = {
 			isa = PBXGroup;
 			children = (
+				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
 				60E4D92D2745A6E000D4E6F1 /* fhnw_ios_clockApp.swift */,
 				60E4D92F2745A6E000D4E6F1 /* MainView.swift */,
 				DD9F607D274AB9C4004BDA46 /* ClockView.swift */,
-				60E556CF2749002100F53B20 /* ClockModel.swift */,
-				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
-				60E4D9312745A6E100D4E6F1 /* Assets.xcassets */,
-				60E4D9332745A6E100D4E6F1 /* Preview Content */,
-				DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */,
 				DDEFF60D274AA5DC0046CFE9 /* ClockDetailView.swift */,
+				DDEFF609274A9F2A0046CFE9 /* DateTimeUtils.swift */,
+				60E4D9572745A93600D4E6F1 /* ClockViewModel.swift */,
+				60E556CF2749002100F53B20 /* ClockModel.swift */,
+				60E4D9332745A6E100D4E6F1 /* Preview Content */,
 			);
 			path = "fhnw-ios-clock";
 			sourceTree = "<group>";
