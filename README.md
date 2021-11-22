@@ -21,7 +21,7 @@ This project was created for the course [ios](https://www.fhnw.ch/de/studium/mod
 - Conforms to the MVVM principle
 - Has some animations included: 
   - Starting animation from time 0:00:00
-  - Smooth transition to new watch hand position
+  - Smooth transition to new watch hand position *(see 'Problems' below)*
 - Provides adopted landscape views according this [guide](https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-different-layouts-using-size-classes) from HackingWithSwift: Using a vertical layout if the `horizontalSizeClass == .compact`. For different devices, this will evaluate to different results. Examples (see also various screenshots at the end of this README):
   - iPhone 13 Pro Max: **only** in `.compact` when in Portrait mode
   - iPhone13: **always** in `.compact`
@@ -32,7 +32,19 @@ This project was created for the course [ios](https://www.fhnw.ch/de/studium/mod
 
 ## Problems
 
-- While we tried to implement a nice animation, we could not solve the problem that the seconds watch hand runs backward when moving from 59 to 0.
+While having tried to implement smooth animations, which let the watch hands appear more like physical elements, there was the following problem: When going from 59 seconds to 0 seconds, the watch-hand would run backwards.
+
+This problem was (partially) fixed with changing the animation type in this situation with:
+
+```swift
+return (components.second == 0 || components.minute == 0 || components.hour == 0) ? .linear(duration: 0.0) : .easeInOut(duration: 0.5)
+```
+
+
+
+That has the effect that the watch-hands jump instantly from 59 to 0 instead of running backwards.
+
+If anyone know a nicer approach to this problem, please let us know!
 
 
 
