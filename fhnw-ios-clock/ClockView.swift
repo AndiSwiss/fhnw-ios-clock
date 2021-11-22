@@ -33,10 +33,17 @@ struct ClockView: View {
             }
             .frame(width: size)
             .frame(width: geo.size.width, height: geo.size.height)
-            .animation(.easeInOut(duration: 0.5), value: components)
+            .animation(specialAnimation(components: components), value: components)
             // Note: The 2nd .frame is used to automatically center the content, according to
             // https://www.hackingwithswift.com/books/ios-swiftui/resizing-images-to-fit-the-screen-using-geometryreader
         }
+    }
+    
+    private func specialAnimation(components: DateComponents) -> Animation {
+        // When just using the regular .default or .easeInOut(duration: 0.5) animation, then the watch hand will go backwards when
+        // going from 59 seconds to 0 seconds or from 59 minutes to 0 minutes and so on.
+        // While there might be more elegant solutions, this one does the trick by just making an instant animation when changing from 59 to 60
+        return (components.second == 0 || components.minute == 0 || components.hour == 0) ? .linear(duration: 0.0) : .easeInOut(duration: 0.5)
     }
 }
 
